@@ -1,0 +1,16 @@
+{
+  "name": "thriftily",
+  "version": "0.0.1",
+  "main": "./main.js",
+  
+  "keywords": [
+    "egg",
+    "egg-plugin",
+    "egg-thrift",
+    "thrift",
+    "thriftily"
+  ],
+  "eggPlugin": {
+    "name": "thriftily"
+  }
+}
