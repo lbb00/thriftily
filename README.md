@@ -2,72 +2,75 @@
 
 A plugin for create thrift client.
 
-Support: Node Eggjs
+Support: Node 10+,Eggjs
+
+[![Npm](https://img.shields.io/npm/v/thriftily.svg?style=flat-square)](https://www.npmjs.com/package/thriftily)
+[![License](https://img.shields.io/github/license/loveonelong/thriftily.svg?style=flat-square)](https://img.shields.io/github/license/loveonelong/thriftily.svg)
 
 ## Useage
 
-### Config
+```bash
+npm install thriftily -save
+```
 
-#### Common Config
+### CommonConfig
+
 ```javascript
-const thriftilyConfig = {
-  app: true, // default true, use it with eggjs
-  agent: false, // default flase, use it with eggjs
+const config = {
+  app: true, // default true, use it with eggjs app
+  agent: false, // default flase, use it with eggjs agent
   async: false, // default false, use promise
   reconnect: true, // default true
-  maxAttempts: 0, // default 0
+  maxAttempts: 0, // default 0, 0 means no limit
   attemptTime: 2000, // default 2000ms
-  default: {},
-  clients: {}
- 
-}
-
-// default
-const default = { // it will merge with all clients
-  host: '1.2.3.4'
-}
-
-// clients example
-cosnt clients = {
-  userServer:{ // 'userServer' as client name
-    host: ''.
-    port: ''
+  default: {
+    // it will as default as all clients
+    host: '1.2.3.4'
+  },
+  clients: {
+    // example Foo、Bar, msFoo & msBar as alias name
+    msFoo:{
+      host: 'foohost'.
+      port: 'fooport'
+    },
+    msBar:{
+      host: 'barhost'.
+      port: 'barport'
+    }
   }
 }
 ```
 
-#### Egg Config
+### With Egg
+
+#### config/plugin.js
 
 ```javascript
-moduel.exports.thriftily = // same as upper
+module.exports.thriftily = {
+  enable: true,
+  package: "thriftily"
+};
 ```
 
-### Node
+#### config/config.js
 
 ```javascript
-const { ThriftilyManage } = require("thriftily");
-const thriftilyConfig = require("your config");
-
-const manage = new ThriftilyManage(yourConfig, yourLogger);
-manage.start(); // will connect all client
-
-const { client } = manage.thriftilyMap.get("your client name");
+module.exports.thriftily = thriftilyConfig; // same as upper common config
 ```
 
+#### Use in service
 
-### Egg
-
-```
-const { Service } = require('egg');
+```javascript
+const { Service } = require('egg')
 
 class FooService extends Service {
   bar() {
-    const { client } = this.app.thriftily.get('your client name');
+    const { client } = this.app.thriftily.get('your client name')
 
     client.anyMethod(null, (err, data) => {
 
     });
-    // thriftilyConfig is true
+    // thriftilyConfig.async have to equal true
     try{
       const res = await client.anyMethod(null)
     }catch(e){
@@ -75,4 +78,16 @@ class FooService extends Service {
     }
   }
 }
+```
+
+### With Node
+
+```javascript
+const { ThriftilyManager } = require("thriftily");
+const thriftilyConfig = require("your config path");
+
+const manager = new ThriftilyManager(yourConfig, yourLogger);
+manager.start(); // start all clients
+
+const { client } = manager.thriftilyMap.get("your client alias");
 ```

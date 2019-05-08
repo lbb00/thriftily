@@ -1,8 +1,14 @@
 {
   "name": "thriftily",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./main.js",
-  
+  "description": "A nodejs & Eggjs plugin for create thrift client",
+  "author": "love@onelong.org",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/loveonelong/thriftily"
+	},
   "keywords": [
     "egg",
     "egg-plugin",
@@ -11,6 +17,12 @@
     "thriftily"
   ],
   "eggPlugin": {
-    "name": "thriftily"
+    "name": "thriftily",
+    "dependencies": [
+      "thrift"
+    ]
+  },
+  "dependencies": {
+    "thrift": "^0.12.0"
   }
 }
