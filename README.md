@@ -4,8 +4,9 @@ A plugin for create thrift client.
 
 Support: Node 10+,Eggjs
 
-[![Npm](https://img.shields.io/npm/v/thriftily.svg?style=flat-square)](https://www.npmjs.com/package/thriftily)
+[![Npm Version](https://img.shields.io/npm/v/thriftily.svg?style=flat-square)](https://www.npmjs.com/package/thriftily)
 [![License](https://img.shields.io/github/license/loveonelong/thriftily.svg?style=flat-square)](https://img.shields.io/github/license/loveonelong/thriftily.svg)
+[![Npm Download](https://img.shields.io/npm/dm/thriftily.svg?style=flat-square)](https://www.npmjs.com/package/thriftily)
 
 ## Useage
 
