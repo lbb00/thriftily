@@ -26,6 +26,7 @@ class ThriftilyManager {
 
     thriftily.on('connect', e => {
       this.logger.info(`[egg-thriftily ${alias}] 微服务已连接`)
+      thriftily.doPing()
     })
 
     thriftily.on('error', e => {

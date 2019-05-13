@@ -8,6 +8,16 @@ class Thriftily extends EventEmitter {
     this.alias = alias
     this.async = async
     this.attemptCount = 0
+
+    // ping
+    if (this.config.ping) {
+      if (typeof this.config.ping === 'funciton') {
+        this.ping = this.config.ping
+      } else {
+        this.ping = this.client[this.config.ping]
+      }
+    }
+
     // start
     this.createConnection()
     this.createClient()
@@ -51,7 +61,7 @@ class Thriftily extends EventEmitter {
         get (target, propKey) {
           return (...params) => {
             if (params.length > 0 && typeof params[params.length - 1] === 'function') {
-              // Had callback function in params
+              // Had a callback function in params
               target[propKey](...params)
             } else {
               // Promise
@@ -71,6 +81,15 @@ class Thriftily extends EventEmitter {
     }
     this.client = _client
     return _client
+  }
+
+  doPing () {
+    if (!this.ping) return
+    this.ping(function pingCallback (err) {
+      if (!err) {
+        setTimeout(1000, this.doPing)
+      }
+    })
   }
 }
 

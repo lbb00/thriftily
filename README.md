@@ -1,6 +1,6 @@
 # Thriftily
 
-A plugin for create thrift client.
+A plugin for use thrift clients with nodejs or eggjs.
 
 Support: Node 10+,Eggjs
 
@@ -20,7 +20,7 @@ npm install thriftily -save
 const config = {
   app: true, // default true, use it with eggjs app
   agent: false, // default flase, use it with eggjs agent
-  async: false, // default false, use promise
+  async: false, // default false, use promise, like 'await yourClient.method()'
   reconnect: true, // default true
   maxAttempts: 0, // default 0, 0 means no limit
   attemptTime: 2000, // default 2000ms
@@ -31,12 +31,16 @@ const config = {
   clients: {
     // example Foo、Bar, msFoo & msBar as alias name
     msFoo:{
-      host: 'foohost'.
-      port: 'fooport'
+      host: 'foohost',
+      port: 'fooport',
+      client: yourFooGenjs
+      ping: 'youpingName',  // your ping name or method
     },
     msBar:{
-      host: 'barhost'.
+      host: 'barhost',
       port: 'barport'
+      client: yourBarGenjs
+      ping: yourBarGenjs.yourping
     }
   }
 }
