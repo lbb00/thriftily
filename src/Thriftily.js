@@ -55,32 +55,8 @@ class Thriftily extends EventEmitter {
 
   createClient () {
     const client = thrift.createClient(this.config.client, this.connection)
-    let _client = client
-    if (this.async) {
-      _client = new Proxy(client, {
-        get (target, propKey) {
-          return (...params) => {
-            if (params.length > 0 && typeof params[params.length - 1] === 'function') {
-              // Had a callback function in params
-              target[propKey](...params)
-            } else {
-              // Promise
-              return new Promise((resolve, reject) => {
-                target[propKey](...params, (err, res) => {
-                  if (err) {
-                    reject(err)
-                  } else {
-                    resolve(res)
-                  }
-                })
-              })
-            }
-          }
-        }
-      })
-    }
-    this.client = _client
-    return _client
+    this.client = client
+    return client
   }
 
   doPing () {

@@ -20,7 +20,6 @@ npm install thriftily -save
 const config = {
   app: true, // default true, use it with eggjs app
   agent: false, // default flase, use it with eggjs agent
-  async: false, // default false, use promise, like 'await yourClient.method()'
   reconnect: true, // default true
   maxAttempts: 0, // default 0, 0 means no limit
   attemptTime: 2000, // default 2000ms
@@ -71,15 +70,10 @@ const { Service } = require('egg')
 class FooService extends Service {
   bar() {
     const { client } = this.app.thriftily.get('your client name')
-
-    client.anyMethod(null, (err, data) => {
-
-    });
-    // thriftilyConfig.async have to equal true
     try{
-      const res = await client.anyMethod(null)
+      const res = await client.yourClientMethod()
     }catch(e){
-
+      console.log(e)
     }
   }
 }
@@ -88,11 +82,17 @@ class FooService extends Service {
 ### With Node
 
 ```javascript
-const { ThriftilyManager } = require("thriftily");
-const thriftilyConfig = require("your config path");
+const { ThriftilyManager } = require("thriftily")
+const thriftilyConfig = require("your config path")
 
-const manager = new ThriftilyManager(yourConfig, yourLogger);
-manager.start(); // start all clients
+const manager = new ThriftilyManager(yourConfig, yourLogger)
+manager.start()
 
-const { client } = manager.thriftilyMap.get("your client alias");
+const { client } = manager.thriftilyMap.get("your client alias")
+
+try{
+  const res = await client.yourClientMethod()
+}catch(e){
+  console.log(e)
+}
 ```
