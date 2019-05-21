@@ -4,11 +4,11 @@
   "main": "./main.js",
   "description": "A nodejs & Eggjs plugin for create thrift client",
   "author": "love@onelong.org",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/loveonelong/thriftily"
-	},
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loveonelong/thriftily"
+  },
   "keywords": [
     "egg",
     "egg-plugin",
@@ -21,5 +21,13 @@
   },
   "dependencies": {
     "thrift": "^0.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0"
   }
 }
