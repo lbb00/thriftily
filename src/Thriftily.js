@@ -11,7 +11,7 @@ class Thriftily extends EventEmitter {
 
     // ping
     if (this.config.ping) {
-      if (typeof this.config.ping === 'funciton') {
+      if (typeof this.config.ping === 'function') {
         this.ping = this.config.ping
       } else {
         this.ping = this.client[this.config.ping]
