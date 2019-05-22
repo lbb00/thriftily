@@ -22,7 +22,7 @@ const config = {
   agent: false, // default flase, use it with eggjs agent
   reconnect: true, // default true
   maxAttempts: 0, // default 0, 0 means no limit
-  attemptTime: 2000, // default 2000ms
+  attemptTime: 1000, // default 2000ms
   default: {
     // it will as default as all clients
     host: '1.2.3.4'
@@ -34,6 +34,7 @@ const config = {
       port: 'fooport',
       client: yourFooGenjs
       ping: 'youpingName',  // your ping name or method
+      pingAttemptTime: 5000, // default 10000ms
     },
     msBar:{
       host: 'barhost',

@@ -3,6 +3,7 @@
 ## v0.2.0 2019.5.21 GMT+0800
 
 1. Remove config.async, the reason is because [THRIFT-2376: nodejs: allow Promise style calls for client and server](https://issues.apache.org/jira/browse/THRIFT-2376).
+2. Support ping and can config ping method in config.js.
 
 ## v0.1.1 2019.5.8 GMT+0800
 

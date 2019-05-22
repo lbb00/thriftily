@@ -2,19 +2,20 @@ const thrift = require('thrift')
 const EventEmitter = require('events')
 
 class Thriftily extends EventEmitter {
-  constructor (alias, clientConfig, async) {
+  constructor (alias, clientConfig, logger) {
     super()
     this.config = clientConfig
     this.alias = alias
-    this.async = async
+    this.logger = logger
     this.attemptCount = 0
 
     // ping
+    this.pingTimer = null
     if (this.config.ping) {
-      if (typeof this.config.ping === 'function') {
-        this.ping = this.config.ping
-      } else {
-        this.ping = this.client[this.config.ping]
+      const args = this.config.ping.slice(1)
+      const pingName = this.config.ping[0]
+      this.ping = function _ping () {
+        return this.client[pingName](...args)
       }
     }
 
@@ -24,6 +25,9 @@ class Thriftily extends EventEmitter {
   }
 
   reConnect () {
+    // close connection
+    this.connection.end()
+
     this.attemptCount++
     this.createConnection()
     this.createClient()
@@ -44,11 +48,16 @@ class Thriftily extends EventEmitter {
     })
     this.connection = connection
     connection.on('connect', e => {
-      this.attemptCount = 0 // rest
+      // reset
+      this.attemptCount = 0
       this.emit('connect', e)
     })
     connection.on('close', e => this.emit('close', e))
-    connection.on('error', e => this.emit('error', e))
+    connection.on('error', e => {
+      // reset
+      if (this.pingTimer) clearTimeout(this.pingTimer)
+      this.emit('error', e)
+    })
     connection.on('timeout', e => this.emit('timeout', e))
     return connection
   }
@@ -59,13 +68,15 @@ class Thriftily extends EventEmitter {
     return client
   }
 
-  doPing () {
+  async doPing () {
     if (!this.ping) return
-    this.ping(function pingCallback (err) {
-      if (!err) {
-        setTimeout(1000, this.doPing)
-      }
-    })
+    try {
+      const res = await this.ping()
+      this.logger && this.logger.debug(`[egg-thriftily ${this.alias}] ping:`, res)
+      this.pingTimer = setTimeout(this.doPing.bind(this), this.config.pingAttemptTime || 10000)
+    } catch (e) {
+      this.emit('error', new Error(`ping error: ${e.message}`))
+    }
   }
 }
 
