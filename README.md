@@ -70,7 +70,8 @@ const { Service } = require('egg')
 
 class FooService extends Service {
   bar() {
-    const { client } = this.app.thriftily.get('your client name')
+    const { app } = this
+    const { client } = app.thriftily.get('your client name')
     try{
       const res = await client.yourClientMethod()
     }catch(e){
@@ -89,7 +90,7 @@ const thriftilyConfig = require("your config path")
 const manager = new ThriftilyManager(yourConfig, yourLogger)
 manager.start()
 
-const { client } = manager.thriftilyMap.get("your client alias")
+const { client } = manager.get("your client alias")
 
 try{
   const res = await client.yourClientMethod()

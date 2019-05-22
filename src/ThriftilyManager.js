@@ -56,6 +56,10 @@ class ThriftilyManager {
     })
     return thriftily
   }
+
+  get (aliasName) {
+    return this.thriftilyMap(aliasName)
+  }
 }
 
 module.exports = ThriftilyManager
