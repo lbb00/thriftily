@@ -1,6 +1,6 @@
 {
   "name": "thriftily",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "main": "./main.js",
   "description": "A nodejs & Eggjs plugin for create thrift client",
   "author": "love@onelong.org",
