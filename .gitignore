@@ -2,4 +2,5 @@
 .idea
 .vscode
 .log
+local-test
 node_modules

@@ -2,12 +2,13 @@ const config = {
   thriftily: {
     app: true,
     agent: false,
-    async: false,
-    reconnect: true,
-    maxAttempts: 0,
-    attemptTime: 2000,
     clients: {},
-    default: {}
+    default: {
+      reconnect: true,
+      reconnectMaxTimes: 0,
+      reconnectMaxSleep: 60000,
+      pingSleep: 10000
+    }
   }
 }
 
