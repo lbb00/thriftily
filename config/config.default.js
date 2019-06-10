@@ -2,6 +2,7 @@ const config = {
   thriftily: {
     app: true,
     agent: false,
+    pinglog: false,
     clients: {},
     default: {
       reconnect: true,

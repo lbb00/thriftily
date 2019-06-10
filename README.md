@@ -19,7 +19,8 @@ npm install thriftily -save
 ```javascript
 const config = {
   app: true, // default true, use it with eggjs app
-  agent: false, // default flase, use it with eggjs agent
+  agent: false, // default false, use it with eggjs agent
+  pinglog: true, // default false,false is use logger.debug, ture is use logger.info print the ping log.
   default: {
     // it will as default as all clients config
     reconnect: true, // default true

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.1 (2019.6.11 GMT+0800)
+
+## feature
+
+1. Add pinglog configuration.
 ## v1.0.0 (2019.6.6 GMT+0800)
 
 ## feature
