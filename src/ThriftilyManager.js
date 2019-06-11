@@ -31,8 +31,8 @@ class ThriftilyManager {
       const startDate = new Date().valueOf()
       try {
         await ping()
-        const printPinglog = this.config.pinglog ? this.logger.info : this.logger.debug
-        printPinglog(`${genTag()} ping ok: time ${new Date().valueOf() - startDate}ms.`)
+        const logContent = `${genTag()} ping ok: time ${new Date().valueOf() - startDate}ms.`
+        this.config.pinglog ? this.logger.info(logContent) : this.logger.debug(logContent)
         pingTimeout = setTimeout(doPing, thriftilyConfig.pingSleep)
       } catch (e) {
         thriftily.emit('error', new Error(`ping error: time ${new Date().valueOf() - startDate}ms, ${e.message}`))
