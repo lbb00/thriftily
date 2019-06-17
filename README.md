@@ -11,7 +11,7 @@ Support: Node 10+,Eggjs
 ## Useage
 
 ```bash
-npm install thriftily -save
+npm install thriftily --save
 ```
 
 ### Common Config
